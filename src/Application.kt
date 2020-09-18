@@ -1,18 +1,18 @@
 package com.iwahara.antenna.ktor
 
+import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.http.*
-import freemarker.cache.*
 import io.ktor.freemarker.*
-import io.ktor.content.*
+import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.locations.*
+import io.ktor.response.*
+import io.ktor.routing.*
+import io.ktor.util.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
+@KtorExperimentalAPI
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
@@ -22,6 +22,14 @@ fun Application.module(testing: Boolean = false) {
 
     install(Locations) {
     }
+    val url = environment.config.property("antenna.database.url").getString()
+    val port = environment.config.property("antenna.database.port").getString()
+    val name = environment.config.property("antenna.database.name").getString()
+    val user = environment.config.property("antenna.database.user").getString()
+    val password = environment.config.property("antenna.database.password").getString()
+
+    val migration = Migration(url, port, name, user, password)
+    migration.migrate()
 
     routing {
         get("/") {
@@ -32,7 +40,7 @@ fun Application.module(testing: Boolean = false) {
             call.respond(FreeMarkerContent("index.ftl", mapOf("data" to IndexData(listOf(1, 2, 3))), ""))
         }
 
-        get("/test/{name}"){
+        get("/test/{name}") {
             val name = call.parameters["name"]
             call.respondText("Hello World $name")
         }
@@ -60,7 +68,8 @@ data class IndexData(val items: List<Int>)
 @Location("/location/{name}")
 class MyLocation(val name: String, val arg1: Int = 42, val arg2: String = "default")
 
-@Location("/type/{name}") data class Type(val name: String) {
+@Location("/type/{name}")
+data class Type(val name: String) {
     @Location("/edit")
     data class Edit(val type: Type)
 

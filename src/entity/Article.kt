@@ -3,7 +3,7 @@ package com.iwahara.antenna.ktor.entity
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.jodatime.datetime
 
-object Article: Table() {
+object Article : Table() {
     val id = integer("id").autoIncrement()
     val name = text("article_name")
     val url = varchar("url", length = 2048)
