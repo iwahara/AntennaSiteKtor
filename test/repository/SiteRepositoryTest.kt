@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.joda.time.DateTime
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -33,6 +34,8 @@ class SiteRepositoryTest {
                 it[name] = "サイト名${i}"
                 it[url] = "http://example.com/url${i}"
                 it[feedUrl] = "http://example.com/feed${i}"
+                it[articleCount] = i
+                it[updatedAt] = DateTime(2020, 12, 12, 10, 10, 10)
             }
         }
 
