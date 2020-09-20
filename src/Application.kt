@@ -35,7 +35,8 @@ fun Application.module(testing: Boolean = false) {
     migration.migrate()
 
     startKoin {
-        listOf(getModule())
+        printLogger()
+        getModule()
     }
 
     routing {
