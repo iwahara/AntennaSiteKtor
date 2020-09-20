@@ -9,6 +9,9 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.*
+import org.koin.core.context.startKoin
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -30,6 +33,11 @@ fun Application.module(testing: Boolean = false) {
 
     val migration = Migration(url, port, name, user, password)
     migration.migrate()
+
+    startKoin {
+        printLogger()
+        getModule()
+    }
 
     routing {
         get("/") {
@@ -60,6 +68,12 @@ fun Application.module(testing: Boolean = false) {
         get<Type.List> {
             call.respondText("Inside $it")
         }
+    }
+}
+
+private fun getModule(): Module {
+    return module {
+
     }
 }
 
