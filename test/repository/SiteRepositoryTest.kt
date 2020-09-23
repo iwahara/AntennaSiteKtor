@@ -35,7 +35,7 @@ class SiteRepositoryTest {
                 it[url] = "http://example.com/url${i}"
                 it[feedUrl] = "http://example.com/feed${i}"
                 it[articleCount] = i
-                it[updatedAt] = DateTime(2020, 12, 12, 10, 10, 10)
+                it[updatedAt] = DateTime(2020, 12, 12, 10, 10, i)
             }
         }
 
@@ -55,8 +55,12 @@ class SiteRepositoryTest {
         val db = Database.connect("jdbc:mysql://localhost:3306/test", "com.mysql.jdbc.Driver", "root", "root")
         transaction {
             val repository = SiteRepository()
-            val actual = repository.find(5)
-            assertEquals(5, actual.size)
+            val actual = repository.findAll()
+            assertEquals(10, actual.size)
+            for (i in 9 until 0) {
+                val expected = DateTime(2020, 12, 12, 10, 10, i)
+                assertEquals(expected, actual[i].updatedAt)
+            }
         }
     }
 }

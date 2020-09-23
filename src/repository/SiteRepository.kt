@@ -1,6 +1,7 @@
 package com.iwahara.antenna.ktor.repository
 
 import com.iwahara.antenna.ktor.entity.Site
+import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.selectAll
 import org.joda.time.DateTime
 
@@ -14,10 +15,10 @@ class SiteRepository {
         val updatedAt: DateTime?
     )
 
-    fun find(count: Int): MutableList<Data> {
+    fun findAll(): MutableList<Data> {
         val ret = mutableListOf<Data>()
 
-        Site.selectAll().limit(count).forEach {
+        Site.selectAll().orderBy(Site.updatedAt, SortOrder.DESC).forEach {
             val data = Data(
                 it[Site.id],
                 it[Site.name],
