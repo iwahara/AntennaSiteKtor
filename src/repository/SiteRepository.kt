@@ -15,7 +15,7 @@ class SiteRepository {
         val updatedAt: DateTime?
     )
 
-    fun findAll(): MutableList<Data> {
+    fun findAll(): List<Data> {
         val ret = mutableListOf<Data>()
 
         Site.selectAll().orderBy(Site.updatedAt, SortOrder.DESC).forEach {
