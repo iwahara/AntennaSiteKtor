@@ -42,8 +42,8 @@ class SiteRepositoryTest : DataBaseTest() {
             val repository = SiteRepository()
             val actual = repository.findAll()
             assertEquals(10, actual.size)
-            for (i in 9 until 0) {
-                val expected = DateTime(2020, 12, 12, 10, 10, i)
+            for (i in 0 until 10) {
+                val expected = DateTime(2020, 12, 12, 10, 10, 9 - i)
                 assertEquals(expected, actual[i].updatedAt)
             }
         }
