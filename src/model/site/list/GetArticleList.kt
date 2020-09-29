@@ -1,11 +1,10 @@
 package com.iwahara.antenna.ktor.model.site.list
 
-import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import org.joda.time.DateTime
 
-class GetArticleList(private val articleRepository: ArticleRepositoryImpl) {
+class GetArticleList(private val articleRepository: ArticleRepository) {
 
-    fun get(siteId: Int, targetDatetime: DateTime, count: Int): List<ArticleRepositoryImpl.Data> {
+    fun get(siteId: Int, targetDatetime: DateTime, count: Int): List<ArticleRepository.Data> {
         return articleRepository.findBySite(siteId, targetDatetime, count)
     }
 }
