@@ -3,6 +3,7 @@ package com.iwahara.antenna.ktor
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
 import com.iwahara.antenna.ktor.model.site.list.GetArticleList
 import com.iwahara.antenna.ktor.model.site.list.GetSiteList
+import com.iwahara.antenna.ktor.model.site.list.SiteRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
 import freemarker.cache.ClassTemplateLoader
@@ -79,7 +80,7 @@ fun Application.module(testing: Boolean = false) {
 private fun getModule(): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleRepository }
-        factory { SiteRepositoryImpl() }
+        factory { SiteRepositoryImpl() as SiteRepository }
         factory { GetSiteList(get()) }
         factory { GetArticleList(get()) }
     }
