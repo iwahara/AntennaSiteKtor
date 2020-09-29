@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 import org.joda.time.DateTime
 
-class ArticleRepository {
+class ArticleRepositoryImpl {
     data class Data(
             val id: Int,
             val name: String,

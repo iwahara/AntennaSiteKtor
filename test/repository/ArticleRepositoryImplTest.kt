@@ -12,7 +12,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ArticleRepositoryTest : DataBaseTest() {
+class ArticleRepositoryImplTest : DataBaseTest() {
 
     @BeforeTest
     fun setUp() {
@@ -48,7 +48,7 @@ class ArticleRepositoryTest : DataBaseTest() {
     fun test_findBySite() {
         val db = Database.connect("jdbc:mysql://localhost:3306/test", "com.mysql.jdbc.Driver", "root", "root")
         transaction(db) {
-            val repository = ArticleRepository()
+            val repository = ArticleRepositoryImpl()
             val actual = repository.findBySite(1, DateTime(2020, 12, 12, 10, 10, 8), 5)
             assertEquals(5, actual.size)
 

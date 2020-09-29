@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.selectAll
 import org.joda.time.DateTime
 
-class SiteRepository {
+class SiteRepositoryImpl {
     data class Data(
             val id: Int,
             val name: String,
