@@ -45,4 +45,5 @@ dependencies {
     implementation "mysql:mysql-connector-java:$mysql_version"
     implementation "org.koin:koin-ktor:$koin_version"
     testImplementation "io.mockk:mockk:$mockk_version"
+    implementation "io.ktor:ktor-html-builder:$ktor_version"
 }

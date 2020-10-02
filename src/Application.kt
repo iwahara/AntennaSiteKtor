@@ -6,6 +6,9 @@ import com.iwahara.antenna.ktor.model.site.list.SiteListImpl
 import com.iwahara.antenna.ktor.model.site.list.SiteRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
+import com.iwahara.antenna.ktor.usecase.site.list.ArticleList
+import com.iwahara.antenna.ktor.usecase.site.list.SiteList
+import com.iwahara.antenna.ktor.usecase.site.list.SiteListUseCase
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.*
 import io.ktor.freemarker.*
@@ -48,6 +51,7 @@ fun Application.module(testing: Boolean = false) {
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+
         }
 
         get("/html-freemarker") {
@@ -81,8 +85,9 @@ private fun getModule(): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleRepository }
         factory { SiteRepositoryImpl() as SiteRepository }
-        factory { SiteListImpl(get()) }
-        factory { ArticleListImpl(get()) }
+        factory { SiteListImpl(get()) as SiteList }
+        factory { ArticleListImpl(get()) as ArticleList }
+        factory { SiteListUseCase(get(), get()) }
     }
 }
 
