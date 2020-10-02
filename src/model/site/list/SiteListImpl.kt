@@ -1,8 +1,10 @@
 package com.iwahara.antenna.ktor.model.site.list
 
-class SiteListImpl(private val siteRepository: SiteRepository) {
+import com.iwahara.antenna.ktor.usecase.site.list.SiteList
 
-    fun get(): List<SiteRepository.Data> {
+class SiteListImpl(private val siteRepository: SiteRepository) : SiteList {
+
+    override fun get(): List<SiteRepository.Data> {
         return siteRepository.findAll()
     }
 }
