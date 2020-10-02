@@ -1,22 +1,26 @@
 package com.iwahara.antenna.ktor
 
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import io.ktor.routing.*
+import io.ktor.config.*
 import io.ktor.http.*
-import freemarker.cache.*
-import io.ktor.freemarker.*
-import io.ktor.content.*
-import io.ktor.http.content.*
-import io.ktor.locations.*
-import kotlin.test.*
 import io.ktor.server.testing.*
+import io.ktor.util.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ApplicationTest {
+    @KtorExperimentalAPI
     @Test
     fun testRoot() {
-        withTestApplication({ module(testing = true) }) {
+        withTestApplication({
+            (environment.config as MapApplicationConfig).apply {
+                put("antenna.database.url", "jdbc:mysql://localhost")
+                put("antenna.database.port", "3306")
+                put("antenna.database.name", "test")
+                put("antenna.database.user", "root")
+                put("antenna.database.password", "root")
+            }
+            module(testing = true)
+        }) {
             handleRequest(HttpMethod.Get, "/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals("HELLO WORLD!", response.content)

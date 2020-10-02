@@ -11,7 +11,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SiteRepositoryTest : DataBaseTest() {
+class SiteRepositoryImplTest : DataBaseTest() {
 
     @BeforeTest
     fun setUp() {
@@ -39,7 +39,7 @@ class SiteRepositoryTest : DataBaseTest() {
     fun test_find() {
         val db = Database.connect("jdbc:mysql://localhost:3306/test", "com.mysql.jdbc.Driver", "root", "root")
         transaction {
-            val repository = SiteRepository()
+            val repository = SiteRepositoryImpl()
             val actual = repository.findAll()
             assertEquals(10, actual.size)
             for (i in 0 until 10) {

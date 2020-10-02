@@ -44,4 +44,5 @@ dependencies {
     implementation "org.xerial:sqlite-jdbc:3.30.1"
     implementation "mysql:mysql-connector-java:$mysql_version"
     implementation "org.koin:koin-ktor:$koin_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
 }
