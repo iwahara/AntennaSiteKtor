@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ArticleListTest {
+class ArticleListImplTest {
 
     @Test
     fun test_get() {
@@ -20,7 +20,7 @@ class ArticleListTest {
 
         every { articleRepository.findBySite(1, targetDatetime, 10) } returns expected
 
-        val model = ArticleList(articleRepository)
+        val model = ArticleListImpl(articleRepository)
         val actual = model.get(1, targetDatetime, 10)
 
         assertEquals(1, actual.size)

@@ -1,8 +1,8 @@
 package com.iwahara.antenna.ktor
 
-import com.iwahara.antenna.ktor.model.site.list.ArticleList
+import com.iwahara.antenna.ktor.model.site.list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
-import com.iwahara.antenna.ktor.model.site.list.SiteList
+import com.iwahara.antenna.ktor.model.site.list.SiteListImpl
 import com.iwahara.antenna.ktor.model.site.list.SiteRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
@@ -81,8 +81,8 @@ private fun getModule(): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleRepository }
         factory { SiteRepositoryImpl() as SiteRepository }
-        factory { SiteList(get()) }
-        factory { ArticleList(get()) }
+        factory { SiteListImpl(get()) }
+        factory { ArticleListImpl(get()) }
     }
 }
 

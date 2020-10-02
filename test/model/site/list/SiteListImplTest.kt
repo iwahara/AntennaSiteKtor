@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SiteListTest {
+class SiteListImplTest {
 
     @Test
     fun test_get() {
@@ -20,7 +20,7 @@ class SiteListTest {
 
         every { siteRepository.findAll() } returns expected
 
-        val model = SiteList(siteRepository)
+        val model = SiteListImpl(siteRepository)
         val actual = model.get()
 
         assertEquals(1, actual.size)
