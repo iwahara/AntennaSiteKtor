@@ -1,5 +1,6 @@
 package com.iwahara.antenna.ktor
 
+import com.iwahara.antenna.ktor.controller.siteList
 import com.iwahara.antenna.ktor.model.site.list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
 import com.iwahara.antenna.ktor.model.site.list.SiteListImpl
@@ -18,9 +19,9 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.*
-import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import org.koin.ktor.ext.Koin
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -40,14 +41,15 @@ fun Application.module(testing: Boolean = false) {
     val user = environment.config.property("antenna.database.user").getString()
     val password = environment.config.property("antenna.database.password").getString()
 
+    val databaseConnectionInfo = DataBaseConnectionInfo(url, port, name, user, password)
+
     val migration = Migration(url, port, name, user, password)
     migration.migrate()
 
-    startKoin {
+    install(Koin) {
         printLogger()
-        getModule()
+        modules(getModule(databaseConnectionInfo))
     }
-
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
@@ -78,13 +80,17 @@ fun Application.module(testing: Boolean = false) {
         get<Type.List> {
             call.respondText("Inside $it")
         }
+
+        siteList()
+
     }
 }
 
-private fun getModule(): Module {
+
+private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleRepository }
-        factory { SiteRepositoryImpl() as SiteRepository }
+        factory { SiteRepositoryImpl(DataBaseSettings(databaseConnectionInfo)) as SiteRepository }
         factory { SiteListImpl(get()) as SiteList }
         factory { ArticleListImpl(get()) as ArticleList }
         factory { SiteListUseCase(get(), get()) }
