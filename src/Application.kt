@@ -1,11 +1,17 @@
 package com.iwahara.antenna.ktor
 
+import com.iwahara.antenna.ktor.controller.siteList
+import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
+import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.site.list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
 import com.iwahara.antenna.ktor.model.site.list.SiteListImpl
 import com.iwahara.antenna.ktor.model.site.list.SiteRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
+import com.iwahara.antenna.ktor.usecase.site.list.ArticleList
+import com.iwahara.antenna.ktor.usecase.site.list.SiteList
+import com.iwahara.antenna.ktor.usecase.site.list.SiteListUseCase
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.*
 import io.ktor.freemarker.*
@@ -15,16 +21,16 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.*
-import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import org.koin.ktor.ext.Koin
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @KtorExperimentalAPI
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module(testing: Boolean = false, testModule: Module? = null) {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
     }
@@ -32,22 +38,28 @@ fun Application.module(testing: Boolean = false) {
     install(Locations) {
     }
     val url = environment.config.property("antenna.database.url").getString()
-    val port = environment.config.property("antenna.database.port").getString()
-    val name = environment.config.property("antenna.database.name").getString()
     val user = environment.config.property("antenna.database.user").getString()
     val password = environment.config.property("antenna.database.password").getString()
+    val driver = environment.config.property("antenna.database.driver").getString()
 
-    val migration = Migration(url, port, name, user, password)
+    val databaseConnectionInfo = DataBaseConnectionInfo(driver, url, user, password)
+
+    val migration = Migration(databaseConnectionInfo)
     migration.migrate()
 
-    startKoin {
+    install(Koin) {
         printLogger()
-        getModule()
-    }
+        modules(getModule(databaseConnectionInfo))
 
+        if (testing && testModule != null) {
+            //テスト用のModuleで上書き
+            modules(testModule)
+        }
+    }
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+
         }
 
         get("/html-freemarker") {
@@ -74,17 +86,24 @@ fun Application.module(testing: Boolean = false) {
         get<Type.List> {
             call.respondText("Inside $it")
         }
+
+        siteList()
+
     }
 }
 
-private fun getModule(): Module {
+
+private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleRepository }
         factory { SiteRepositoryImpl() as SiteRepository }
-        factory { SiteListImpl(get()) }
-        factory { ArticleListImpl(get()) }
+        factory { SiteListImpl(get()) as SiteList }
+        factory { ArticleListImpl(get()) as ArticleList }
+        factory { ClockNow() as Clock }
+        factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get(), get()) }
     }
 }
+
 
 data class IndexData(val items: List<Int>)
 

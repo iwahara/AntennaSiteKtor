@@ -1,5 +1,6 @@
 package com.iwahara.antenna.ktor
 
+import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.entity.Article
 import com.iwahara.antenna.ktor.entity.Site
 import org.jetbrains.exposed.sql.Database
@@ -9,18 +10,10 @@ import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class Migration(
-    private val url: String,
-    private val port: String,
-    private val name: String,
-    private val user: String,
-    private val password: String
+    private val info: DataBaseConnectionInfo
 ) {
     fun migrate() {
-        Database.connect("$url:$port/", driver = "com.mysql.jdbc.Driver", user = user, password = password)
-        transaction {
-            SchemaUtils.createDatabase(name)
-        }
-        Database.connect("$url:$port/$name", driver = "com.mysql.jdbc.Driver", user = user, password = password)
+        Database.connect(driver = info.driver, url = info.url, user = info.user, password = info.password)
         transaction {
             addLogger(StdOutSqlLogger)
             SchemaUtils.createMissingTablesAndColumns(Site, Article)

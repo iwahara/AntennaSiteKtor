@@ -1,18 +1,28 @@
 package com.iwahara.antenna.ktor.usecase.site.list
 
+import com.iwahara.antenna.ktor.Clock
+import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
 import com.iwahara.antenna.ktor.model.site.list.SiteRepository
-import org.joda.time.DateTime
+import org.jetbrains.exposed.sql.transactions.transaction
 
-class SiteListUseCase(private val siteList: SiteList, private val articleList: ArticleList) {
+class SiteListUseCase(
+    private val dbSettings: DataBaseSettings,
+    private val siteList: SiteList,
+    private val articleList: ArticleList,
+    private val clock: Clock
+) {
     data class Data(val siteData: SiteRepository.Data, val articleList: List<ArticleRepository.Data>)
 
-    fun get(targetDatetime: DateTime, count: Int): List<Data> {
+    fun get(count: Int): List<Data> {
+        println(clock)
         val ret = mutableListOf<Data>()
-        val siteList = siteList.get()
-        for (site in siteList) {
-            val articleList = articleList.get(site.id, targetDatetime, count)
-            ret.add(Data(site, articleList))
+        transaction(dbSettings.db) {
+            val siteList = siteList.get()
+            for (site in siteList) {
+                val articleList = articleList.get(site.id, clock.now(), count)
+                ret.add(Data(site, articleList))
+            }
         }
         return ret
     }
