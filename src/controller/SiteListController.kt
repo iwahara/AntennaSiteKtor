@@ -9,14 +9,13 @@ import kotlinx.html.a
 import kotlinx.html.classes
 import kotlinx.html.div
 import kotlinx.html.p
-import org.joda.time.DateTime
 import org.koin.ktor.ext.inject
 
 
 fun Routing.siteList() {
     val useCase by inject<SiteListUseCase>()
-    val siteArticleDataList = useCase.get(DateTime.now(), 10)
-    get("/article_view/site.html") {
+    val siteArticleDataList = useCase.get(10)
+    get("/site.html") {
         call.respondHtmlTemplate(MainTemplate()) {
             title {
                 text("サイト別一覧")

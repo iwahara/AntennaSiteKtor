@@ -94,7 +94,8 @@ private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
         factory { SiteRepositoryImpl() as SiteRepository }
         factory { SiteListImpl(get()) as SiteList }
         factory { ArticleListImpl(get()) as ArticleList }
-        factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get()) }
+        factory { ClockNow() as Clock }
+        factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get(), get()) }
     }
 }
 

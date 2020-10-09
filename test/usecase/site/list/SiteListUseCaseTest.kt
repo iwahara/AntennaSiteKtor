@@ -1,5 +1,6 @@
 package com.iwahara.antenna.ktor.usecase.site.list
 
+import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
@@ -33,8 +34,10 @@ class SiteListUseCaseTest {
         every { articleListModel.get(1, targetDatetime, count) } returns articleList
         val dbSetting = DataBaseSettings(DataBaseConnectionInfo("org.h2.Driver", "jdbc:h2:mem:regular", "", ""))
 
-        val useCase = SiteListUseCase(dbSetting, siteListModel, articleListModel)
-        val actual = useCase.get(targetDatetime, count)
+        val clock = ClockSpecify(targetDatetime)
+
+        val useCase = SiteListUseCase(dbSetting, siteListModel, articleListModel, clock)
+        val actual = useCase.get(count)
 
         assertEquals(1, actual.size)
 
