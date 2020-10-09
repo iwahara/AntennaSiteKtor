@@ -38,14 +38,13 @@ fun Application.module(testing: Boolean = false) {
     install(Locations) {
     }
     val url = environment.config.property("antenna.database.url").getString()
-    val port = environment.config.property("antenna.database.port").getString()
-    val name = environment.config.property("antenna.database.name").getString()
     val user = environment.config.property("antenna.database.user").getString()
     val password = environment.config.property("antenna.database.password").getString()
+    val driver = environment.config.property("antenna.database.driver").getString()
 
-    val databaseConnectionInfo = DataBaseConnectionInfo("com.mysql.jdbc.Driver", url, port, name, user, password)
+    val databaseConnectionInfo = DataBaseConnectionInfo(driver, url, user, password)
 
-    val migration = Migration(url, port, name, user, password)
+    val migration = Migration(databaseConnectionInfo)
     migration.migrate()
 
     install(Koin) {
