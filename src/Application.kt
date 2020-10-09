@@ -90,10 +90,10 @@ fun Application.module(testing: Boolean = false) {
 private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleRepository }
-        factory { SiteRepositoryImpl(DataBaseSettings(databaseConnectionInfo)) as SiteRepository }
+        factory { SiteRepositoryImpl() as SiteRepository }
         factory { SiteListImpl(get()) as SiteList }
         factory { ArticleListImpl(get()) as ArticleList }
-        factory { SiteListUseCase(get(), get()) }
+        factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get()) }
     }
 }
 
