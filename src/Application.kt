@@ -30,7 +30,7 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @KtorExperimentalAPI
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module(testing: Boolean = false, testModule: Module? = null) {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
     }
@@ -50,6 +50,11 @@ fun Application.module(testing: Boolean = false) {
     install(Koin) {
         printLogger()
         modules(getModule(databaseConnectionInfo))
+
+        if (testing && testModule != null) {
+            //テスト用のModuleで上書き
+            modules(testModule)
+        }
     }
     routing {
         get("/") {
@@ -98,6 +103,7 @@ private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
         factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get(), get()) }
     }
 }
+
 
 data class IndexData(val items: List<Int>)
 

@@ -1,5 +1,7 @@
 package com.iwahara.antenna.ktor.controller
 
+import com.iwahara.antenna.ktor.Clock
+import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.entity.Article
 import com.iwahara.antenna.ktor.entity.Site
 import com.iwahara.antenna.ktor.module
@@ -10,6 +12,7 @@ import io.ktor.server.testing.*
 import io.ktor.util.*
 import org.jetbrains.exposed.sql.insert
 import org.joda.time.DateTime
+import org.koin.dsl.module
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -56,8 +59,13 @@ class SiteListControllerTest : DataBaseTest() {
                 put("antenna.database.user", "root")
                 put("antenna.database.password", "root")
             }
-            module(testing = true)
+            val testModule = module(override = true) {
+                factory { ClockSpecify(DateTime(2020, 1, 1, 12, 12, 12)) as Clock }
+            }
+            module(testing = true, testModule = testModule)
+
         }) {
+
             handleRequest(HttpMethod.Get, "/site.html").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals("HELLO WORLD!", response.content)
