@@ -1,6 +1,6 @@
 package com.iwahara.antenna.ktor.usecase.site.list
 
-import com.iwahara.antenna.ktor.DataBaseSettings
+import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
 import com.iwahara.antenna.ktor.model.site.list.SiteRepository
 import org.jetbrains.exposed.sql.transactions.transaction

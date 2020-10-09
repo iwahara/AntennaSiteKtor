@@ -1,6 +1,8 @@
 package com.iwahara.antenna.ktor
 
 import com.iwahara.antenna.ktor.controller.siteList
+import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
+import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.site.list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site.list.ArticleRepository
 import com.iwahara.antenna.ktor.model.site.list.SiteListImpl
@@ -41,7 +43,7 @@ fun Application.module(testing: Boolean = false) {
     val user = environment.config.property("antenna.database.user").getString()
     val password = environment.config.property("antenna.database.password").getString()
 
-    val databaseConnectionInfo = DataBaseConnectionInfo(url, port, name, user, password)
+    val databaseConnectionInfo = DataBaseConnectionInfo("com.mysql.jdbc.Driver", url, port, name, user, password)
 
     val migration = Migration(url, port, name, user, password)
     migration.migrate()
