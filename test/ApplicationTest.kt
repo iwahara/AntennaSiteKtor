@@ -1,21 +1,34 @@
 package com.iwahara.antenna.ktor
 
+import com.iwahara.antenna.ktor.test.DataBaseTest
 import io.ktor.config.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import io.ktor.util.*
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ApplicationTest {
+class ApplicationTest : DataBaseTest() {
+
+    @BeforeTest
+    fun setUp() {
+        setUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+    }
+
+    @AfterTest
+    fun tearDown() {
+        cleanUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+    }
+
     @KtorExperimentalAPI
     @Test
     fun testRoot() {
         withTestApplication({
             (environment.config as MapApplicationConfig).apply {
-                put("antenna.database.url", "jdbc:mysql://localhost")
-                put("antenna.database.port", "3306")
-                put("antenna.database.name", "test")
+                put("antenna.database.url", "jdbc:mysql://localhost:3306/test")
+                put("antenna.database.driver", "com.mysql.jdbc.Driver")
                 put("antenna.database.user", "root")
                 put("antenna.database.password", "root")
             }
@@ -26,5 +39,9 @@ class ApplicationTest {
                 assertEquals("HELLO WORLD!", response.content)
             }
         }
+    }
+
+    override fun fixture() {
+
     }
 }
