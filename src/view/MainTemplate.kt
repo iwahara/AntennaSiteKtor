@@ -90,7 +90,6 @@ class MainTemplate : Template<HTML> {
                 a {
                     href = "/"
                     +"アンテナサイト"
-                    style = "width:300px;"
                 }
             }
             div {
