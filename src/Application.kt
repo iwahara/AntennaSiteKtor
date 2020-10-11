@@ -1,5 +1,6 @@
 package com.iwahara.antenna.ktor
 
+import com.iwahara.antenna.ktor.controller.SiteListController
 import com.iwahara.antenna.ktor.controller.siteList
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
@@ -101,6 +102,7 @@ private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
         factory { ArticleListImpl(get()) as ArticleList }
         factory { ClockNow() as Clock }
         factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get(), get()) }
+        factory { SiteListController(get()) }
     }
 }
 
