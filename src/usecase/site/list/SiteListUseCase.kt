@@ -15,7 +15,6 @@ class SiteListUseCase(
     data class Data(val siteData: SiteRepository.Data, val articleList: List<ArticleRepository.Data>)
 
     fun get(count: Int): List<Data> {
-        println(clock)
         val ret = mutableListOf<Data>()
         transaction(dbSettings.db) {
             val siteList = siteList.get()
