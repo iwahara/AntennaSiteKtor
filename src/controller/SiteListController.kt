@@ -11,7 +11,7 @@ import org.koin.ktor.ext.inject
 
 fun Routing.siteList() {
     val controller by inject<SiteListController>()
-    get("/site.html") {
+    get("/site/list") {
         call.respondHtmlTemplate(controller.site()) {}
     }
 }
