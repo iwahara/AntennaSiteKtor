@@ -1,4 +1,4 @@
-package com.iwahara.antenna.ktor.model.site.list
+package com.iwahara.antenna.ktor.model.site_list
 
 import org.joda.time.DateTime
 
