@@ -1,4 +1,4 @@
-package com.iwahara.antenna.ktor.model.site.list
+package com.iwahara.antenna.ktor.model.site_list
 
 import io.mockk.confirmVerified
 import io.mockk.every
@@ -15,7 +15,7 @@ class SiteListImplTest {
         val siteRepository = mockk<SiteRepository>()
         val updateAt = DateTime.now()
         val expected = listOf(
-            SiteRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
+                SiteRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
         )
 
         every { siteRepository.findAll() } returns expected
