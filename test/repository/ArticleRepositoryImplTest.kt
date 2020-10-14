@@ -58,4 +58,19 @@ class ArticleRepositoryImplTest : DataBaseTest() {
             }
         }
     }
+
+    @Test
+    fun test_findBySiteOffset() {
+        val db = Database.connect("jdbc:mysql://localhost:3306/test", "com.mysql.jdbc.Driver", "root", "root")
+        transaction(db) {
+            val repository = ArticleRepositoryImpl()
+            val actual = repository.findBySite(1, DateTime(2020, 12, 12, 10, 10, 8), 5, "6".padStart(32, '0'))
+            assertEquals(5, actual.size)
+
+            for (i in 0 until 5) {
+                val article = actual[i]
+                assertEquals("${5 - i}".padStart(32, '0'), article.sortingOrder)
+            }
+        }
+    }
 }

@@ -13,4 +13,5 @@ interface ArticleRepository {
     )
 
     fun findBySite(siteId: Int, targetDatetime: DateTime, count: Int): List<Data>
+    fun findBySite(siteId: Int, targetDatetime: DateTime, count: Int, offset: String): List<Data>
 }
