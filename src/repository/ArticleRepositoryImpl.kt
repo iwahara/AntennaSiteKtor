@@ -25,4 +25,21 @@ class ArticleRepositoryImpl : ArticleRepository {
                 }
         return ret
     }
+
+    override fun findBySite(siteId: Int, targetDatetime: DateTime, count: Int, offset: String): List<ArticleRepository.Data> {
+        val ret = mutableListOf<ArticleRepository.Data>()
+        Article.select { Article.siteId eq siteId and (Article.postDatetime lessEq targetDatetime) and (Article.sortingOrder less offset) }
+                .orderBy(Article.sortingOrder, SortOrder.DESC).limit(count).forEach {
+                    val data = ArticleRepository.Data(
+                            it[Article.id],
+                            it[Article.name],
+                            it[Article.url],
+                            it[Article.postDatetime],
+                            it[Article.sortingOrder],
+                            it[Article.viewCount]
+                    )
+                    ret.add(data)
+                }
+        return ret
+    }
 }
