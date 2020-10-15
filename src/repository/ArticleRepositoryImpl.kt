@@ -1,7 +1,7 @@
 package com.iwahara.antenna.ktor.repository
 
 import com.iwahara.antenna.ktor.entity.Article
-import com.iwahara.antenna.ktor.model.site_list.ArticleRepository
+import com.iwahara.antenna.ktor.model.ArticleRepository
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
