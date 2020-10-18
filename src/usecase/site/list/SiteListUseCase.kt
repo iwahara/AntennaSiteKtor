@@ -2,8 +2,8 @@ package com.iwahara.antenna.ktor.usecase.site.list
 
 import com.iwahara.antenna.ktor.Clock
 import com.iwahara.antenna.ktor.database.DataBaseSettings
-import com.iwahara.antenna.ktor.model.site_list.ArticleRepository
-import com.iwahara.antenna.ktor.model.site_list.SiteRepository
+import com.iwahara.antenna.ktor.model.ArticleRepository
+import com.iwahara.antenna.ktor.model.SiteRepository
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class SiteListUseCase(

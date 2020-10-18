@@ -1,6 +1,6 @@
 package com.iwahara.antenna.ktor.usecase.site.list
 
-import com.iwahara.antenna.ktor.model.site_list.ArticleRepository
+import com.iwahara.antenna.ktor.model.ArticleRepository
 import org.joda.time.DateTime
 
 interface ArticleList {

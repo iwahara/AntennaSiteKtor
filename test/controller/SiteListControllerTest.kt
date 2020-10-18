@@ -44,11 +44,11 @@ class SiteListControllerTest : DataBaseTest() {
                 it[name] = "記事${i}"
                 it[url] = "http://example.com/url${i}"
                 it[postDatetime] = DateTime(
-                    baseDateTime.year,
-                    baseDateTime.monthOfYear,
-                    baseDateTime.dayOfMonth,
-                    baseDateTime.hourOfDay,
-                    baseDateTime.minuteOfHour - i
+                        baseDateTime.year,
+                        baseDateTime.monthOfYear,
+                        baseDateTime.dayOfMonth,
+                        baseDateTime.hourOfDay,
+                        baseDateTime.minuteOfHour - i
                 )
                 it[sortingOrder] = "$i".padStart(32, '0')
                 it[viewCount] = i
@@ -74,7 +74,7 @@ class SiteListControllerTest : DataBaseTest() {
 
         }) {
 
-            handleRequest(HttpMethod.Get, "/site.html").apply {
+            handleRequest(HttpMethod.Get, "/site/list").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 //TODO: そのうちパースしてテストしたい(JSoupを使うかな…)
                 //assertEquals("HELLO WORLD!", response.content)
