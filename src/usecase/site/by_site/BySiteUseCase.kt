@@ -8,7 +8,7 @@ import com.iwahara.antenna.ktor.usecase.ArticleListBySite
 import com.iwahara.antenna.ktor.usecase.site.SiteDataById
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class BySIteUseCase(private val dbSettings: DataBaseSettings,
+class BySiteUseCase(private val dbSettings: DataBaseSettings,
                     private val articleListBySite: ArticleListBySite,
                     private val siteDataById: SiteDataById,
                     private val clock: Clock) {
@@ -18,7 +18,15 @@ class BySIteUseCase(private val dbSettings: DataBaseSettings,
         return transaction(dbSettings.db) {
             val siteData = siteDataById.get(siteId)
             val articleList = articleListBySite.get(siteId, clock.now(), count)
-            return@transaction Data(siteData, articleList)
+            Data(siteData, articleList)
+        }
+    }
+
+    fun get(siteId: Int, count: Int, offset: String): Data {
+        return transaction(dbSettings.db) {
+            val siteData = siteDataById.get(siteId)
+            val articleList = articleListBySite.get(siteId, clock.now(), count, offset)
+            Data(siteData, articleList)
         }
     }
 }
