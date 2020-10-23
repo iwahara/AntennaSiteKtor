@@ -1,4 +1,4 @@
-package com.iwahara.antenna.ktor.usecase
+package com.iwahara.antenna.ktor.usecase.site.by_site
 
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import org.joda.time.DateTime
