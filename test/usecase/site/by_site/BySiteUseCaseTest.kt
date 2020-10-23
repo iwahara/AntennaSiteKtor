@@ -4,6 +4,7 @@ import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.SiteRepository
+import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import com.iwahara.antenna.ktor.usecase.ArticleListBySite
 import com.iwahara.antenna.ktor.usecase.site.SiteDataById
 import io.mockk.confirmVerified
@@ -30,7 +31,7 @@ class BySiteUseCaseTest {
         val postDatetime = DateTime.now()
         val articleListBySite = mockk<ArticleListBySite>()
         val articleList = listOf(
-                ArticleRepository.Data(1, "記事", "http://example.com", postDatetime, "202009120909091234", 1)
+                ArticleBySiteRepository.Data(1, "記事", "http://example.com", postDatetime, "202009120909091234", 1)
         )
         every { articleListBySite.get(siteId, targetDatetime, count) } returns articleList
         val dbSetting = DataBaseSettings(DataBaseConnectionInfo("org.h2.Driver", "jdbc:h2:mem:regular", "", ""))

@@ -12,11 +12,11 @@ class ArticleListImplTest {
 
     @Test
     fun test_get() {
-        val articleRepository = mockk<ArticleRepository>()
+        val articleRepository = mockk<ArticleBySiteRepository>()
         val postDatetime = DateTime.now()
         val targetDatetime = DateTime.now()
         val expected =
-                listOf(ArticleRepository.Data(1, "記事", "http://example.com", postDatetime, "202009120909091234", 1))
+                listOf(ArticleBySiteRepository.Data(1, "記事", "http://example.com", postDatetime, "202009120909091234", 1))
 
         every { articleRepository.findBySite(1, targetDatetime, 10) } returns expected
 
