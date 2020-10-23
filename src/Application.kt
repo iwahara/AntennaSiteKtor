@@ -4,10 +4,10 @@ import com.iwahara.antenna.ktor.controller.SiteListController
 import com.iwahara.antenna.ktor.controller.siteList
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
-import com.iwahara.antenna.ktor.model.SiteRepository
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import com.iwahara.antenna.ktor.model.site_list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site_list.SiteListImpl
+import com.iwahara.antenna.ktor.model.site_list.SiteRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
 import com.iwahara.antenna.ktor.usecase.site.list.ArticleList

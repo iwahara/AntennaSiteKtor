@@ -3,8 +3,8 @@ package com.iwahara.antenna.ktor.usecase.site.by_site
 import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
-import com.iwahara.antenna.ktor.model.SiteRepository
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
+import com.iwahara.antenna.ktor.model.site_list.SiteRepository
 import com.iwahara.antenna.ktor.usecase.ArticleListBySite
 import com.iwahara.antenna.ktor.usecase.site.SiteDataById
 import io.mockk.confirmVerified
