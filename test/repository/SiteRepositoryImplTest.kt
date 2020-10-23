@@ -48,4 +48,19 @@ class SiteRepositoryImplTest : DataBaseTest() {
             }
         }
     }
+
+    @Test
+    fun test_findById() {
+        val db = Database.connect("jdbc:mysql://localhost:3306/test", "com.mysql.jdbc.Driver", "root", "root")
+        transaction(db) {
+            val repository = SiteRepositoryImpl()
+            val actual = repository.findById(1)
+
+            assertEquals("サイト名0", actual.name)
+            assertEquals("http://example.com/url0", actual.url)
+            assertEquals("http://example.com/feed0", actual.feedUrl)
+            assertEquals(0, actual.articleCount)
+            assertEquals(DateTime(2020, 12, 12, 10, 10, 0), actual.updatedAt)
+        }
+    }
 }
