@@ -2,8 +2,8 @@ package com.iwahara.antenna.ktor.usecase.site.by_site
 
 import com.iwahara.antenna.ktor.Clock
 import com.iwahara.antenna.ktor.database.DataBaseSettings
-import com.iwahara.antenna.ktor.model.ArticleRepository
 import com.iwahara.antenna.ktor.model.SiteRepository
+import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import com.iwahara.antenna.ktor.usecase.ArticleListBySite
 import com.iwahara.antenna.ktor.usecase.site.SiteDataById
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -12,7 +12,7 @@ class BySiteUseCase(private val dbSettings: DataBaseSettings,
                     private val articleListBySite: ArticleListBySite,
                     private val siteDataById: SiteDataById,
                     private val clock: Clock) {
-    data class Data(val siteData: SiteRepository.Data, val articleList: List<ArticleRepository.Data>)
+    data class Data(val siteData: SiteRepository.Data, val articleList: List<ArticleBySiteRepository.Data>)
 
     fun get(siteId: Int, count: Int): Data {
         return transaction(dbSettings.db) {

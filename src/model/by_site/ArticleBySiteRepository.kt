@@ -1,8 +1,8 @@
-package com.iwahara.antenna.ktor.model
+package com.iwahara.antenna.ktor.model.by_site
 
 import org.joda.time.DateTime
 
-interface ArticleRepository {
+interface ArticleBySiteRepository {
     data class Data(
             val id: Int,
             val name: String,
