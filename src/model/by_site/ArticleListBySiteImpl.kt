@@ -1,6 +1,6 @@
 package com.iwahara.antenna.ktor.model.by_site
 
-import com.iwahara.antenna.ktor.usecase.site.by_site.ArticleListBySite
+import com.iwahara.antenna.ktor.usecase.by_site.ArticleListBySite
 import org.joda.time.DateTime
 
 class ArticleListBySiteImpl(private val articleRepository: ArticleBySiteRepository) : ArticleListBySite {

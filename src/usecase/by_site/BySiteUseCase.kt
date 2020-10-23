@@ -1,4 +1,4 @@
-package com.iwahara.antenna.ktor.usecase.site.by_site
+package com.iwahara.antenna.ktor.usecase.by_site
 
 import com.iwahara.antenna.ktor.Clock
 import com.iwahara.antenna.ktor.database.DataBaseSettings
