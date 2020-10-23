@@ -1,4 +1,4 @@
-package com.iwahara.antenna.ktor.usecase.site.list
+package com.iwahara.antenna.ktor.usecase.site_list
 
 import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 

@@ -10,9 +10,9 @@ import com.iwahara.antenna.ktor.model.site_list.SiteListImpl
 import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
-import com.iwahara.antenna.ktor.usecase.site.list.ArticleList
-import com.iwahara.antenna.ktor.usecase.site.list.SiteList
-import com.iwahara.antenna.ktor.usecase.site.list.SiteListUseCase
+import com.iwahara.antenna.ktor.usecase.site_list.ArticleList
+import com.iwahara.antenna.ktor.usecase.site_list.SiteList
+import com.iwahara.antenna.ktor.usecase.site_list.SiteListUseCase
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.*
 import io.ktor.freemarker.*
