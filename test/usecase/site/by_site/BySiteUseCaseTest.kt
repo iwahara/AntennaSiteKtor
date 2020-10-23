@@ -6,7 +6,6 @@ import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import com.iwahara.antenna.ktor.usecase.ArticleListBySite
-import com.iwahara.antenna.ktor.usecase.site.SiteDataById
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
