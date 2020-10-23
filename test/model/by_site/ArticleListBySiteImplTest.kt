@@ -1,6 +1,5 @@
 package com.iwahara.antenna.ktor.model.by_site
 
-import com.iwahara.antenna.ktor.model.ArticleRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -13,11 +12,11 @@ class ArticleListBySiteImplTest {
 
     @Test
     fun test_get() {
-        val articleRepository = mockk<ArticleRepository>()
+        val articleRepository = mockk<ArticleBySiteRepository>()
         val postDatetime = DateTime.now()
         val targetDatetime = DateTime.now()
         val expected =
-                listOf(ArticleRepository.Data(1, "記事", "http://example.com", postDatetime, "12345678901234567890123456789012", 1))
+                listOf(ArticleBySiteRepository.Data(1, "記事", "http://example.com", postDatetime, "12345678901234567890123456789012", 1))
 
         every { articleRepository.findBySite(1, targetDatetime, 10, "12345678901234567890123456789012") } returns expected
 

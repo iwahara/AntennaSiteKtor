@@ -4,15 +4,15 @@ import com.iwahara.antenna.ktor.controller.SiteListController
 import com.iwahara.antenna.ktor.controller.siteList
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
-import com.iwahara.antenna.ktor.model.ArticleRepository
-import com.iwahara.antenna.ktor.model.SiteRepository
+import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import com.iwahara.antenna.ktor.model.site_list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site_list.SiteListImpl
+import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
-import com.iwahara.antenna.ktor.usecase.site.list.ArticleList
-import com.iwahara.antenna.ktor.usecase.site.list.SiteList
-import com.iwahara.antenna.ktor.usecase.site.list.SiteListUseCase
+import com.iwahara.antenna.ktor.usecase.site_list.ArticleList
+import com.iwahara.antenna.ktor.usecase.site_list.SiteList
+import com.iwahara.antenna.ktor.usecase.site_list.SiteListUseCase
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.*
 import io.ktor.freemarker.*
@@ -96,8 +96,8 @@ fun Application.module(testing: Boolean = false, testModule: Module? = null) {
 
 private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
     return module {
-        factory { ArticleRepositoryImpl() as ArticleRepository }
-        factory { SiteRepositoryImpl() as SiteRepository }
+        factory { ArticleRepositoryImpl() as ArticleBySiteRepository }
+        factory { SiteRepositoryImpl() as SiteListRepository }
         factory { SiteListImpl(get()) as SiteList }
         factory { ArticleListImpl(get()) as ArticleList }
         factory { ClockNow() as Clock }

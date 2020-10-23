@@ -1,6 +1,6 @@
 package com.iwahara.antenna.ktor.view.site
 
-import com.iwahara.antenna.ktor.usecase.site.list.SiteListUseCase
+import com.iwahara.antenna.ktor.usecase.site_list.SiteListUseCase
 import com.iwahara.antenna.ktor.view.MainTemplate
 import io.ktor.html.*
 import kotlinx.html.*

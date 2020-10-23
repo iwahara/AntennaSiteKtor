@@ -1,12 +1,10 @@
-package com.iwahara.antenna.ktor.usecase.site.by_site
+package com.iwahara.antenna.ktor.usecase.by_site
 
 import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
-import com.iwahara.antenna.ktor.model.ArticleRepository
-import com.iwahara.antenna.ktor.model.SiteRepository
-import com.iwahara.antenna.ktor.usecase.ArticleListBySite
-import com.iwahara.antenna.ktor.usecase.site.SiteDataById
+import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
+import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -25,13 +23,13 @@ class BySiteUseCaseTest {
 
         val updateAt = DateTime.now()
         val siteDataById = mockk<SiteDataById>()
-        val site = SiteRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
+        val site = SiteListRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
         every { siteDataById.get(siteId) } returns site
 
         val postDatetime = DateTime.now()
         val articleListBySite = mockk<ArticleListBySite>()
         val articleList = listOf(
-                ArticleRepository.Data(1, "記事", "http://example.com", postDatetime, "202009120909091234", 1)
+                ArticleBySiteRepository.Data(1, "記事", "http://example.com", postDatetime, "202009120909091234", 1)
         )
         every { articleListBySite.get(siteId, targetDatetime, count) } returns articleList
         val dbSetting = DataBaseSettings(DataBaseConnectionInfo("org.h2.Driver", "jdbc:h2:mem:regular", "", ""))

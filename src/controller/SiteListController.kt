@@ -1,6 +1,6 @@
 package com.iwahara.antenna.ktor.controller
 
-import com.iwahara.antenna.ktor.usecase.site.list.SiteListUseCase
+import com.iwahara.antenna.ktor.usecase.site_list.SiteListUseCase
 import com.iwahara.antenna.ktor.view.site.ListView
 import io.ktor.application.*
 import io.ktor.html.*
