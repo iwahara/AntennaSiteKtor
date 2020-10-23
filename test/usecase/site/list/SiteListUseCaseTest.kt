@@ -4,7 +4,7 @@ import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.SiteRepository
-import com.iwahara.antenna.ktor.model.site_list.ArticleBySiteRepository
+import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk

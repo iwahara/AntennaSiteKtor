@@ -1,5 +1,6 @@
 package com.iwahara.antenna.ktor.model.site_list
 
+import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk

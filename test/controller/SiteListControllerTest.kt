@@ -19,7 +19,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SiteListControllerTest : DataBaseTest() {
-    private val baseDateTime = DateTime.now()
+    private val baseDateTime = DateTime(2020, 10, 10, 13, 55, 33)
 
     @BeforeTest
     fun setUp() {
@@ -37,7 +37,7 @@ class SiteListControllerTest : DataBaseTest() {
             it[url] = "http://example.com/url"
             it[feedUrl] = "http://example.com/feed"
             it[articleCount] = 10
-            it[updatedAt] = DateTime.now()
+            it[updatedAt] = baseDateTime
         }
         for (i in 0 until 10) {
             Article.insert {
