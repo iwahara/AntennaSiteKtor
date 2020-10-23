@@ -4,7 +4,7 @@ import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
-import com.iwahara.antenna.ktor.model.site_list.SiteRepository
+import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -22,7 +22,7 @@ class SiteListUseCaseTest {
         val updateAt = DateTime.now()
         val siteListModel = mockk<SiteList>()
         val siteList = listOf(
-                SiteRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
+                SiteListRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
         )
         every { siteListModel.get() } returns siteList
 

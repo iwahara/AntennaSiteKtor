@@ -4,7 +4,7 @@ import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
-import com.iwahara.antenna.ktor.model.site_list.SiteRepository
+import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import com.iwahara.antenna.ktor.usecase.ArticleListBySite
 import com.iwahara.antenna.ktor.usecase.site.SiteDataById
 import io.mockk.confirmVerified
@@ -25,7 +25,7 @@ class BySiteUseCaseTest {
 
         val updateAt = DateTime.now()
         val siteDataById = mockk<SiteDataById>()
-        val site = SiteRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
+        val site = SiteListRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
         every { siteDataById.get(siteId) } returns site
 
         val postDatetime = DateTime.now()

@@ -12,10 +12,10 @@ class SiteListImplTest {
 
     @Test
     fun test_get() {
-        val siteRepository = mockk<SiteRepository>()
+        val siteRepository = mockk<SiteListRepository>()
         val updateAt = DateTime.now()
         val expected = listOf(
-                SiteRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
+                SiteListRepository.Data(1, "サイト", "http://example.com", "http://example.com/feed", 1, updateAt)
         )
 
         every { siteRepository.findAll() } returns expected

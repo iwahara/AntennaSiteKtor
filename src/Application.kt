@@ -7,7 +7,7 @@ import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import com.iwahara.antenna.ktor.model.site_list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site_list.SiteListImpl
-import com.iwahara.antenna.ktor.model.site_list.SiteRepository
+import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
 import com.iwahara.antenna.ktor.usecase.site.list.ArticleList
@@ -97,7 +97,7 @@ fun Application.module(testing: Boolean = false, testModule: Module? = null) {
 private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleBySiteRepository }
-        factory { SiteRepositoryImpl() as SiteRepository }
+        factory { SiteRepositoryImpl() as SiteListRepository }
         factory { SiteListImpl(get()) as SiteList }
         factory { ArticleListImpl(get()) as ArticleList }
         factory { ClockNow() as Clock }

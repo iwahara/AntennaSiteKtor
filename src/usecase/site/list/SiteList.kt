@@ -1,7 +1,7 @@
 package com.iwahara.antenna.ktor.usecase.site.list
 
-import com.iwahara.antenna.ktor.model.site_list.SiteRepository
+import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 
 interface SiteList {
-    fun get(): List<SiteRepository.Data>
+    fun get(): List<SiteListRepository.Data>
 }

@@ -2,7 +2,7 @@ package com.iwahara.antenna.ktor.model.site_list
 
 import org.joda.time.DateTime
 
-interface SiteRepository {
+interface SiteListRepository {
     data class Data(
             val id: Int,
             val name: String,
