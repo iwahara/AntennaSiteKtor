@@ -1,7 +1,7 @@
 package com.iwahara.antenna.ktor.repository
 
 import com.iwahara.antenna.ktor.entity.Site
-import com.iwahara.antenna.ktor.test.DataBaseTest
+import com.iwahara.antenna.ktor.test.MySQLTest
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -11,11 +11,11 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SiteRepositoryImplTest : DataBaseTest() {
+class SiteRepositoryImplTest : MySQLTest() {
 
     @BeforeTest
     fun setUp() {
-        setUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        setUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     override fun fixture() {
@@ -32,7 +32,7 @@ class SiteRepositoryImplTest : DataBaseTest() {
 
     @AfterTest
     fun tearDown() {
-        cleanUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        cleanUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     @Test
@@ -46,6 +46,21 @@ class SiteRepositoryImplTest : DataBaseTest() {
                 val expected = DateTime(2020, 12, 12, 10, 10, 9 - i)
                 assertEquals(expected, actual[i].updatedAt)
             }
+        }
+    }
+
+    @Test
+    fun test_findById() {
+        val db = Database.connect("jdbc:mysql://localhost:3306/test", "com.mysql.jdbc.Driver", "root", "root")
+        transaction(db) {
+            val repository = SiteRepositoryImpl()
+            val actual = repository.findById(1)
+
+            assertEquals("サイト名0", actual.name)
+            assertEquals("http://example.com/url0", actual.url)
+            assertEquals("http://example.com/feed0", actual.feedUrl)
+            assertEquals(0, actual.articleCount)
+            assertEquals(DateTime(2020, 12, 12, 10, 10, 0), actual.updatedAt)
         }
     }
 }

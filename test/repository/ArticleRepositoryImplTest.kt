@@ -2,7 +2,7 @@ package com.iwahara.antenna.ktor.repository
 
 import com.iwahara.antenna.ktor.entity.Article
 import com.iwahara.antenna.ktor.entity.Site
-import com.iwahara.antenna.ktor.test.DataBaseTest
+import com.iwahara.antenna.ktor.test.MySQLTest
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -12,16 +12,16 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ArticleRepositoryImplTest : DataBaseTest() {
+class ArticleRepositoryImplTest : MySQLTest() {
 
     @BeforeTest
     fun setUp() {
-        setUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        setUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     @AfterTest
     fun tearDown() {
-        cleanUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        cleanUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     override fun fixture() {

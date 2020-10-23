@@ -1,6 +1,6 @@
 package com.iwahara.antenna.ktor
 
-import com.iwahara.antenna.ktor.test.DataBaseTest
+import com.iwahara.antenna.ktor.test.MySQLTest
 import io.ktor.config.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
@@ -10,16 +10,16 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ApplicationTest : DataBaseTest() {
+class ApplicationTest : MySQLTest() {
 
     @BeforeTest
     fun setUp() {
-        setUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        setUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     @AfterTest
     fun tearDown() {
-        cleanUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        cleanUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     @KtorExperimentalAPI

@@ -5,7 +5,7 @@ import com.iwahara.antenna.ktor.ClockSpecify
 import com.iwahara.antenna.ktor.entity.Article
 import com.iwahara.antenna.ktor.entity.Site
 import com.iwahara.antenna.ktor.module
-import com.iwahara.antenna.ktor.test.DataBaseTest
+import com.iwahara.antenna.ktor.test.MySQLTest
 import io.ktor.config.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
@@ -18,17 +18,17 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SiteListControllerTest : DataBaseTest() {
+class SiteListControllerTest : MySQLTest() {
     private val baseDateTime = DateTime(2020, 10, 10, 13, 55, 33)
 
     @BeforeTest
     fun setUp() {
-        setUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        setUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     @AfterTest
     fun tearDown() {
-        cleanUpMySQL("jdbc:mysql://localhost:3306", "root", "root", "test")
+        cleanUpDataBase("jdbc:mysql://localhost:3306", "root", "root", "test")
     }
 
     override fun fixture() {
