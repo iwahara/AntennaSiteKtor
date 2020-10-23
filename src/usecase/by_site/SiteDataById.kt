@@ -1,7 +1,7 @@
 package com.iwahara.antenna.ktor.usecase.by_site
 
-import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
+import com.iwahara.antenna.ktor.model.by_site.SiteDataRepository
 
 interface SiteDataById {
-    fun get(siteId: Int): SiteListRepository.Data
+    fun get(siteId: Int): SiteDataRepository.Data
 }
