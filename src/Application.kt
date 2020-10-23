@@ -5,11 +5,16 @@ import com.iwahara.antenna.ktor.controller.siteList
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
 import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
+import com.iwahara.antenna.ktor.model.by_site.ArticleListBySiteImpl
+import com.iwahara.antenna.ktor.model.by_site.SiteDataByIdImpl
+import com.iwahara.antenna.ktor.model.by_site.SiteDataRepository
 import com.iwahara.antenna.ktor.model.site_list.ArticleListImpl
 import com.iwahara.antenna.ktor.model.site_list.SiteListImpl
 import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
+import com.iwahara.antenna.ktor.usecase.by_site.ArticleListBySite
+import com.iwahara.antenna.ktor.usecase.by_site.SiteDataById
 import com.iwahara.antenna.ktor.usecase.site_list.ArticleList
 import com.iwahara.antenna.ktor.usecase.site_list.SiteList
 import com.iwahara.antenna.ktor.usecase.site_list.SiteListUseCase
@@ -97,9 +102,14 @@ fun Application.module(testing: Boolean = false, testModule: Module? = null) {
 private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
     return module {
         factory { ArticleRepositoryImpl() as ArticleBySiteRepository }
+        factory { SiteRepositoryImpl() as SiteDataRepository }
         factory { SiteRepositoryImpl() as SiteListRepository }
+
         factory { SiteListImpl(get()) as SiteList }
         factory { ArticleListImpl(get()) as ArticleList }
+        factory { ArticleListBySiteImpl(get()) as ArticleListBySite }
+        factory { SiteDataByIdImpl(get()) as SiteDataById }
+
         factory { ClockNow() as Clock }
         factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get(), get()) }
         factory { SiteListController(get()) }
