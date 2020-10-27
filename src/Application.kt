@@ -1,6 +1,8 @@
 package com.iwahara.antenna.ktor
 
+import com.iwahara.antenna.ktor.controller.BySiteController
 import com.iwahara.antenna.ktor.controller.SiteListController
+import com.iwahara.antenna.ktor.controller.bySite
 import com.iwahara.antenna.ktor.controller.siteList
 import com.iwahara.antenna.ktor.database.DataBaseConnectionInfo
 import com.iwahara.antenna.ktor.database.DataBaseSettings
@@ -14,6 +16,7 @@ import com.iwahara.antenna.ktor.model.site_list.SiteListRepository
 import com.iwahara.antenna.ktor.repository.ArticleRepositoryImpl
 import com.iwahara.antenna.ktor.repository.SiteRepositoryImpl
 import com.iwahara.antenna.ktor.usecase.by_site.ArticleListBySite
+import com.iwahara.antenna.ktor.usecase.by_site.BySiteUseCase
 import com.iwahara.antenna.ktor.usecase.by_site.SiteDataById
 import com.iwahara.antenna.ktor.usecase.site_list.ArticleList
 import com.iwahara.antenna.ktor.usecase.site_list.SiteList
@@ -94,6 +97,7 @@ fun Application.module(testing: Boolean = false, testModule: Module? = null) {
         }
 
         siteList()
+        bySite()
 
     }
 }
@@ -112,7 +116,10 @@ private fun getModule(databaseConnectionInfo: DataBaseConnectionInfo): Module {
 
         factory { ClockNow() as Clock }
         factory { SiteListUseCase(DataBaseSettings(databaseConnectionInfo), get(), get(), get()) }
+        factory { BySiteUseCase(DataBaseSettings(databaseConnectionInfo), get(), get(), get()) }
+
         factory { SiteListController(get()) }
+        factory { BySiteController(get()) }
     }
 }
 
