@@ -1,7 +1,16 @@
 package com.iwahara.antenna.ktor.usecase.by_site
 
-import com.iwahara.antenna.ktor.model.by_site.SiteDataRepository
+import org.joda.time.DateTime
 
 interface SiteDataById {
-    fun get(siteId: Int): SiteDataRepository.Data
+    data class Data(
+            val id: Int,
+            val name: String,
+            val url: String,
+            val feedUrl: String,
+            val articleCount: Int,
+            val updatedAt: DateTime?
+    )
+
+    fun get(siteId: Int): Data
 }
