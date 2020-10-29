@@ -21,7 +21,13 @@ class SiteDataByIdImplTest {
         val model = SiteDataByIdImpl(siteDataRepository)
         val actual = model.get(1)
 
-        assertEquals(expected, actual)
+        assertEquals(expected.id, actual.id)
+        assertEquals(expected.name, actual.name)
+        assertEquals(expected.url, actual.url)
+        assertEquals(expected.feedUrl, actual.feedUrl)
+        assertEquals(expected.articleCount, actual.articleCount)
+        assertEquals(expected.updatedAt, actual.updatedAt)
+        
         verify(exactly = 1) { siteDataRepository.findById(1) }
         confirmVerified(siteDataRepository)
     }

@@ -24,7 +24,13 @@ class ArticleListBySiteImplTest {
         val actual = model.get(1, targetDatetime, 10, "12345678901234567890123456789012")
 
         assertEquals(1, actual.size)
-        assertEquals(expected, actual)
+        assertEquals(expected[0].id, actual[0].id)
+        assertEquals(expected[0].name, actual[0].name)
+        assertEquals(expected[0].url, actual[0].url)
+        assertEquals(expected[0].postDatetime, actual[0].postDatetime)
+        assertEquals(expected[0].sortingOrder, actual[0].sortingOrder)
+        assertEquals(expected[0].viewCount, actual[0].viewCount)
+
         verify(exactly = 1) { articleRepository.findBySite(1, targetDatetime, 10, "12345678901234567890123456789012") }
         confirmVerified(articleRepository)
     }

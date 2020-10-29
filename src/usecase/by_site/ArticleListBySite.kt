@@ -1,9 +1,17 @@
 package com.iwahara.antenna.ktor.usecase.by_site
 
-import com.iwahara.antenna.ktor.model.by_site.ArticleBySiteRepository
 import org.joda.time.DateTime
 
 interface ArticleListBySite {
-    fun get(siteId: Int, targetDatetime: DateTime, count: Int): List<ArticleBySiteRepository.Data>
-    fun get(siteId: Int, targetDatetime: DateTime, count: Int, offset: String): List<ArticleBySiteRepository.Data>
+    data class Data(
+            val id: Int,
+            val name: String,
+            val url: String,
+            val postDatetime: DateTime,
+            val sortingOrder: String,
+            val viewCount: Int
+    )
+
+    fun get(siteId: Int, targetDatetime: DateTime, count: Int): List<Data>
+    fun get(siteId: Int, targetDatetime: DateTime, count: Int, offset: String): List<Data>
 }
