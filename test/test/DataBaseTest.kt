@@ -6,9 +6,9 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-abstract class DataBaseTest {
+interface DataBaseTest {
 
-    protected fun setUpDataBase(driver: String, url: String, user: String, password: String, database: String) {
+    fun setUpDataBase(driver: String, url: String, user: String, password: String, database: String) {
         Database.connect(url, driver, user, password)
         transaction {
             SchemaUtils.createDatabase(database)
@@ -21,7 +21,7 @@ abstract class DataBaseTest {
         }
     }
 
-    protected fun cleanUpDataBase(driver: String, url: String, user: String, password: String, database: String) {
+    fun cleanUpDataBase(driver: String, url: String, user: String, password: String, database: String) {
         Database.connect(url, driver, user, password)
         transaction {
             SchemaUtils.dropDatabase(database)
@@ -29,5 +29,5 @@ abstract class DataBaseTest {
     }
 
 
-    abstract fun fixture()
+    fun fixture()
 }
